@@ -3,9 +3,12 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
 
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__.'/../views',
+));
+
 $app->get('/', function(Silex\Application $app) {
-	$output = '<h1>Hello World</h1>';
-	return $output;
+	return $app['twig']->render('index.html');
 });
 
 $app->run();
